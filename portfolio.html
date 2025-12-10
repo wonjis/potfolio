@@ -1155,59 +1155,33 @@
         }
 
         // Blog Posts System
-        const blogPosts = [
-            {
-                title: "I Visited All 472 Subway Stations in New York",
-                category: "reflection",
-                date: "November 15, 2024",
-                excerpt: "New York's subway system is the largest in the world. It cuts across bridges and through underwater tunnels, carrying over five million people each day.",
-                link: "#"
-            },
-            {
-                title: "Understanding AI Security Threats in 2024",
-                category: "analysis",
-                date: "October 22, 2024",
-                excerpt: "As AI systems become more prevalent, understanding the security landscape is crucial for product managers and engineers alike.",
-                link: "#"
-            },
-            {
-                title: "How to Build Better CAPTCHAs",
-                category: "how-to",
-                date: "September 8, 2024",
-                excerpt: "A comprehensive guide to creating user-friendly bot detection systems that don't frustrate your users.",
-                link: "#"
-            },
-            {
-                title: "Reflections on My Time at Google",
-                category: "reflection",
-                date: "August 14, 2024",
-                excerpt: "Looking back at the challenges and triumphs of working on security for billions of users at one of the world's largest tech companies.",
-                link: "#"
-            },
-            {
-                title: "The Evolution of Bot Detection",
-                category: "analysis",
-                date: "July 3, 2024",
-                excerpt: "An analysis of how machine learning has transformed the way we identify and stop malicious bots on the internet.",
-                link: "#"
-            },
-            {
-                title: "Getting Started with ML in Cybersecurity",
-                category: "how-to",
-                date: "June 19, 2024",
-                excerpt: "A practical guide for security professionals looking to integrate machine learning into their threat detection systems.",
-                link: "#"
-            }
-        ];
-
+        // Blog Posts System
+        let blogPosts = [];
         let currentCategory = 'all';
         let visiblePostsCount = 3;
+
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('blog.json');
+                const data = await response.json();
+
+                // Sort by date descending (newest first)
+                blogPosts = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                renderPosts();
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+                // Fallback / Placeholder if fetch fails
+                blogPosts = [];
+                renderPosts();
+            }
+        }
 
         function filterPosts(category) {
             if (category === 'all') {
                 return blogPosts;
             }
-            return blogPosts.filter(post => post.category === category);
+            return blogPosts.filter(post => (post.tag || post.category).toLowerCase() === category);
         }
 
         function renderPosts() {
@@ -1220,8 +1194,15 @@
 
             container.innerHTML = '';
 
+            // Empty State / Coming Soon
             if (postsToShow.length === 0) {
                 emptyState.style.display = 'block';
+                // Customize message based on context
+                if (currentCategory !== 'all') {
+                    emptyState.innerHTML = '<p>Coming Soon...</p>';
+                } else {
+                    emptyState.innerHTML = '<p>No posts available yet.</p>';
+                }
                 loadMoreContainer.style.display = 'none';
                 return;
             }
@@ -1231,12 +1212,14 @@
             postsToShow.forEach(post => {
                 const postCard = document.createElement('div');
                 postCard.className = 'blog-post-card';
+                // Using tag from JSON, fallback to category if missing
+                const categoryLabel = post.tag || post.category;
                 postCard.innerHTML = `
-                    <div class="blog-post-category">${post.category}</div>
+                    <div class="blog-post-category">${categoryLabel}</div>
                     <h3>${post.title}</h3>
                     <div class="blog-post-date">${post.date}</div>
-                    <p>${post.excerpt}</p>
-                    <a href="${post.link}" class="blog-post-link">Read More</a>
+                    <p>${post.description || post.excerpt}</p>
+                    <a href="${post.link}" target="_blank" class="blog-post-link">Read More</a>
                 `;
                 container.appendChild(postCard);
             });
@@ -1269,7 +1252,7 @@
         });
 
         // Initial render
-        renderPosts();
+        document.addEventListener('DOMContentLoaded', loadBlogPosts);
     </script>
 </body>
 
