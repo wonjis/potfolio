@@ -690,6 +690,123 @@
             transition: transform 0.1s ease;
         }
 
+        /* Timeline Section */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 3rem;
+            border-left: 1px solid var(--border-gray);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-year {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--text-white);
+            line-height: 1;
+            position: relative;
+        }
+
+        .timeline-year::before {
+            content: '';
+            position: absolute;
+            left: -3.4rem;
+            top: 50%;
+            width: 12px;
+            height: 1px;
+            background: var(--text-white);
+            transform: translateY(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-year::before {
+            width: 20px;
+        }
+
+        .timeline-role {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            color: var(--text-white);
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .timeline-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timeline-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            color: var(--text-gray);
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-tag {
+            border-color: var(--text-white);
+            color: var(--text-white);
+        }
+
+        .timeline-content {
+            color: var(--text-gray);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        .timeline-content p {
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p:last-child {
+            margin-bottom: 0;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             nav {
@@ -796,23 +913,95 @@
                 </div>
 
                 <!-- Detailed Biography Section -->
-                <div class="about-detail">
-                    <div class="about-detail-text">
-                        <h2>About Me</h2>
-                        <p>I'm a product manager with deep expertise in AI security. My career has included work on
-                            Google's core products, Cloudflare's machine learning platform, and burgeoning generative AI
-                            tools. I am currently pursuing my MBA at Harvard Business School.</p>
-                        <p>My career began at Cloudflare, where I led bot detection and helped secure over 20 million
-                            websites. Our technology used ML to identify bots and immediately stop them. Within a year,
-                            I grew product revenue over 400%. A year later, we had become the most popular bot solution
-                            and created a CAPTCHA replacement that eliminated the need for humans to click on traffic
-                            lights.</p>
-                        <p>Shortly after, I took a job at Google, helping secure customer data across the company's
-                            products. I improved security protections that kept billions of users safe from account
-                            hijacking and data breaches.</p>
+                <!-- Detailed Biography Section (Timeline) -->
+                <div class="timeline-container">
+                    <!-- 2017 -->
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-year">2017</div>
+                            <div class="timeline-role">
+                                Undergraduate Student
+                                <div class="timeline-tags">
+                                    <span class="timeline-tag">Fashion</span>
+                                    <span class="timeline-tag">Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-content">
+                            <p>I studied fashion design in Seoul National University, where I learned how to turn ideas
+                                into tangible products from concept ideation and sketching to pattern making and
+                                hand-sewing. I participated in fashion shows and experienced the full creative
+                                production process firsthand.</p>
+                            <p>At the same time, I developed a strong data-driven mindset. I joined a data science
+                                student club and built a personalization machine learning model from the ground up,
+                                marking my first intersection between creativity and technology.</p>
+                        </div>
                     </div>
-                    <div class="about-detail-image">
-                        <img src="headshot.JPG" alt="Wonji Seo" style="width: 100%; height: 100%; object-fit: cover;">
+
+                    <!-- 2020 -->
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-year">2020</div>
+                            <div class="timeline-role">
+                                Startup Founder
+                                <div class="timeline-tags">
+                                    <span class="timeline-tag">Content</span>
+                                    <span class="timeline-tag">0 to 1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-content">
+                            <p>I co-founded a newsletter-based content startup called BYTE. Through viral marketing, we
+                                grew to 10,000 early users. More importantly, I learned that revenue does not always
+                                come from where you expect. Our primary monetization came from content partnerships with
+                                financial institutions rather than direct subscriptions.</p>
+                            <p>The company raised seed funding and continues to operate today. This experience reshaped
+                                how I think about business models, distribution, and sustainable growth.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2021 -->
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-year">2021</div>
+                            <div class="timeline-role">
+                                Product Manager
+                                <div class="timeline-tags">
+                                    <span class="timeline-tag">Commerce</span>
+                                    <span class="timeline-tag">AI</span>
+                                    <span class="timeline-tag">Growth</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-content">
+                            <p>I became the first Product Manager hired at a Series B commerce startup in Korea. I
+                                launched a personalized product feed from the ground up and helped scale advertising
+                                revenue from $0 to $3M annually.</p>
+                            <p>It was incredibly rewarding to watch the company grow from 40 to 300 employees, with 3×
+                                growth in gross merchandise value. Leading products for baby boomer users taught me the
+                                importance of sharp value propositions, user empathy, and execution at scale.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2025 -->
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-year">2025</div>
+                            <div class="timeline-role">
+                                MBA Student
+                                <div class="timeline-tags">
+                                    <span class="timeline-tag">Tech</span>
+                                    <span class="timeline-tag">Startup</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-content">
+                            <p>I am currently an MBA student at University of Michigan, fully immersed in technology,
+                                startups, and AI. I actively participate in early-stage VC fellowships, product and
+                                startup competitions, and hands-on building across emerging technologies.</p>
+                            <p>This chapter is focused on sharpening my strategy, expanding my global network, and
+                                preparing for my next phase as a U.S. tech product leader and future founder.</p>
+                        </div>
                     </div>
                 </div>
             </div>
