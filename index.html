@@ -1053,11 +1053,7 @@
                     </div>
                 </div>
 
-                <div class="blog-notice">
-                    <p>As cybersecurity threats have worsened, the nature of my work has become more sensitive. I am
-                        unable to post regular updates on most topics. However, I will continue to update this page with
-                        personal projects and industry trends (where appropriate).</p>
-                </div>
+
 
                 <div class="blog-posts-grid" id="blogPostsContainer">
                     <!-- Posts will be dynamically inserted here -->
@@ -1219,8 +1215,32 @@
                 renderPosts();
             } catch (error) {
                 console.error('Error loading blog posts:', error);
-                // Fallback / Placeholder if fetch fails
-                blogPosts = [];
+                // Fallback / Placeholder if fetch fails (e.g. local file system without server)
+                blogPosts = [
+                    {
+                        "title": "Monthly Reflection of MBA Life: October 2025",
+                        "description": "A monthly reflection from an MBA student tracking the ups, downs, and learning curves of business-school life. This update offers candid insight into the day-to-day grind, growth, and mindset shifts that come with navigating MBA challenges and opportunities.",
+                        "date": "2025-11-03",
+                        "tag": "Reflection",
+                        "link": "https://growthery.substack.com/p/monthly-reflection-of-mba-life-october"
+                    },
+                    {
+                        "title": "AI in Fashion Design Tool [Random Thesis #1]",
+                        "description": "An exploration of vertical AI service opportunities in the fashion design industry. It analyzes how AI can automate technical workflows, unlock new creative tools, and reshape the design-to-production pipeline.",
+                        "date": "2025-11-16",
+                        "tag": "Analysis",
+                        "link": "https://growthery.substack.com/p/random-thesis-1-fashion-design-and"
+                    },
+                    {
+                        "title": "Monthly Reflection of MBA Life: November 2025",
+                        "description": "A reflection on building rapid prototypes and the key career advice gathered from mentors across tech, startups, and business. It captures how hands-on experimentation and guidance shaped both product thinking and career direction.",
+                        "date": "2025-12-08",
+                        "tag": "Reflection",
+                        "link": "https://growthery.substack.com/p/monthly-reflection-of-mba-life-november"
+                    }
+                ];
+                // Sort by date descending (newest first)
+                blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
                 renderPosts();
             }
         }
